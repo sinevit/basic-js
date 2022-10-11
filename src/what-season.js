@@ -16,33 +16,30 @@ function getSeason(date) {
   if(!date){
     return 'Unable to determine the time of year!'
   }
-  // if(Object.getOwnPropertyNames(date) === [] || date === 'undefined'){
-  //   throw new Error("Invalid date!")
-  // }
-    try{
-      console.log(typeof(date),date.getMonth());
-        let m = date.getMonth();
-        
-        switch (m) {
-        case 0:return 'winter';
-        case 1:return 'winter';
-        case 2:return 'spring';
-        case 3:return 'spring';
-        case 4:return 'spring';
-        case 5:return 'summer';
-        case 6:return 'summer';
-        case 7:return 'summer'; 
-        case 8:return 'autumn';
-        case 9:return 'autumn';
-        case 10:return 'autumn';   
-        case 11:return 'winter';
-      }
-    }catch(err){
-      throw new Error("Invalid date!")
+  if (!Date.parse(date)) {
+    throw new Error('Invalid date!')
+  }
+  try{
+      let m = date.getMonth();
+      
+      switch (m) {
+      case 0:return 'winter';
+      case 1:return 'winter';
+      case 2:return 'spring';
+      case 3:return 'spring';
+      case 4:return 'spring';
+      case 5:return 'summer';
+      case 6:return 'summer';
+      case 7:return 'summer'; 
+      case 8:return 'autumn';
+      case 9:return 'autumn';
+      case 10:return 'autumn';   
+      case 11:return 'winter';
     }
-  // }else{
-  //   throw new Error("Invalid date!")
-  // }
+  }catch{
+    throw new Error('Invalid date!')
+  }
+  
 
 }
 
