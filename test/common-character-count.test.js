@@ -15,3 +15,4 @@ describe('Common character count', () => {
     assert.strictEqual(getCommonCharacterCount('a', 'b'), 0);
   });
 });
+
