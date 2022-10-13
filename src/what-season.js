@@ -16,9 +16,11 @@ function getSeason(date) {
   if(!date){
     return 'Unable to determine the time of year!'
   }
-  if (date.hasOwnProperty('getMonth')) {
-    throw new Error('Invalid date!')
-  }
+  if (Object.keys(date)
+  .length > 0) {
+  throw new Error('Invalid date!');
+}
+
   try{
       let m = date.getMonth();
       
