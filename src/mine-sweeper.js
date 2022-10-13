@@ -23,9 +23,40 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(matrix) {
+ function minesweeper(matrix) {
+  const matrixCopy = matrix.map(item => item.map(_ => 0));
 
-}
+  for (let i = 0; i < matrixCopy.length; i++) {
+    for (let j = 0; j < matrixCopy[i].length; j++) {
+      if(matrix[i][j]===true&&matrix[i+1]!==undefined&&matrix[i+1][j-1]!==undefined) {
+        matrixCopy[i+1][j-1]++; 
+      }
+      if(matrix[i][j]===true&&matrix[i+1]!==undefined&&matrix[i+1][j]!==undefined) {
+        matrixCopy[i+1][j]++; 
+      }
+      if(matrix[i][j]===true&&matrix[i+1]!==undefined&&matrix[i+1][j+1]!==undefined) {
+        matrixCopy[i+1][j+1]++;
+      } 
+      if(matrix[i][j]===true&&matrix[i-1]!==undefined&&matrix[i-1][j+1]!==undefined) {
+        matrixCopy[i-1][j+1]++;
+      } 
+      if(matrix[i][j]===true&&matrix[i-1]!==undefined&&matrix[i-1][j-1]!==undefined) {
+        matrixCopy[i-1][j-1]++; 
+      }
+      if(matrix[i][j]===true&&matrix[i-1]!==undefined&&matrix[i-1][j]!==undefined) {
+        matrixCopy[i-1][j]++;
+      } 
+      if(matrix[i][j]===true&&matrix[i]!==undefined&&matrix[i][j-1]!==undefined) {
+        matrixCopy[i][j-1]++; 
+      }
+      if(matrix[i][j]===true&&matrix[i]!==undefined&&matrix[i][j+1]!==undefined) {
+        matrixCopy[i][j+1]++;
+      } 
+    }
+  }
+    console.log(matrixCopy);
+    return matrixCopy;
+  }
 
 module.exports = {
   minesweeper
