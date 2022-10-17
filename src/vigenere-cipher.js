@@ -20,13 +20,53 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 class VigenereCipheringMachine {
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor(direct = true){
+    this.direct = direct;
+
   }
-  decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  encrypt(message, key) {
+    if(message === undefined || key === undefined) {throw new Error('Incorrect arguments!')}
+
+    let msgMachine = message.toUpperCase();
+    let keyMachine  = (key.repeat(message.length / key.length +1)).slice(0, msgMachine.length).toUpperCase();
+    let res = [];
+    let j =0;
+    
+    for(let i=0; i< msgMachine.length; i++){   
+        if (msgMachine[i].charCodeAt() > 64 && msgMachine[i].charCodeAt() < 91) {
+          let r = (((msgMachine[i].charCodeAt() - 65) + (keyMachine[j].charCodeAt() - 65)) % 26)
+          res.push(String.fromCharCode(r + 65))
+          j++;
+        }else{
+          res.push(String.fromCharCode(msgMachine[i].charCodeAt()))
+        }   
+    }
+    return this.direct ? res.join('') : res.reverse().join('');
+
+  }
+
+  decrypt(encryptedMessage, key) {
+    if(encryptedMessage === undefined || key === undefined) {throw new Error('Incorrect arguments!')}
+    
+    let msgMachine = encryptedMessage.toUpperCase();
+    let keyMachine  = (key.repeat(encryptedMessage.length / key.length +1)).slice(0, msgMachine.length).toUpperCase();
+    let res = [];
+    let j =0;
+    
+    for(let i=0; i< msgMachine.length; i++){   
+        if (msgMachine[i].charCodeAt() > 64 && msgMachine[i].charCodeAt() < 91) {
+          let r = (((msgMachine[i].charCodeAt() - 65) - (keyMachine[j].charCodeAt() - 65)) % 26)
+          if (r < 0){
+            res.push(String.fromCharCode((r +26)%26 + 65));
+          }else{ 
+            res.push(String.fromCharCode(r + 65));
+          }
+          j++;
+        }else{
+          res.push(String.fromCharCode(msgMachine[i].charCodeAt()))
+        }   
+    }
+    return this.direct ? res.join('') : res.reverse().join('');
   }
 }
 
